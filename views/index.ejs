@@ -1,0 +1,87 @@
+<%- include('partials/header.ejs') %>
+<form class="form-inline" method="POST" action="/weatherCity">
+  <div class="form-group mb-2">
+    <p>Enter name city:</p>
+  </div>
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="inputCity" class="sr-only">City</label>
+    <input type="text" class="form-control" id="inputCity" placeholder="Name city can be London,..." name="namecity">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+</form>
+
+<% if (weather) { %>
+  <section class="vh-100" style="background-color: #cdc4f9;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-10">
+          <div class="card shadow-0 border border-dark border-5 text-dark" style="border-radius: 10px;">
+            <div class="card-body p-4">
+              <div class="row text-center">
+                <div class="col-md-9 text-center border-end border-5 border-dark py-4" style="margin-top: -1.5rem; margin-bottom: -1.5rem;">
+                  <div class="d-flex justify-content-around mt-3">
+                    <p class="small"><%= weather.city.name %></p>
+                    <p class="small"><%= new Date(weather.city.sunset * 1000).toLocaleString() %></p>
+                    <p class="small">Rain map</p>
+                  </div>
+                  <div class="d-flex justify-content-around align-items-center py-5 my-4">
+                    <p class="fw-bold mb-0" style="font-size: 7rem;"><%= Math.floor(weather.list[0].main.temp / 10) %> °C</p>
+                    <div class="text-start">
+                      <p class="small"><%= new Date(weather.city.sunset * 1000).getHours() %>:<%= new Date(weather.city.sunset * 1000).getMinutes().toString().padStart(2, '0') %></p>
+                      <p class="h3 mb-3"><%= new Date(weather.city.sunset * 1000).getDate() %></p>
+                      <p class="small mb-0"><%= weather.list[0].weather[0].main %></p>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-around align-items-center mb-3">
+                    <div class="flex-column">
+                      <i class="fas fa-minus"></i>
+                    </div>
+                    <div class="flex-column border" style="border-radius: 10px; padding: .75rem">
+                      <p class="small mb-1"><%= new Date(weather.list[0].dt_txt).getHours() %>:<%= new Date(weather.list[0].dt_txt).getMinutes().toString().padStart(2, '0') %></p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[0].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <p class="small mb-1">Mon</p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[10].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <p class="small mb-1">Tue</p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[17].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <p class="small mb-1">Wed</p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[24].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <p class="small mb-1">Thu</p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[31].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <p class="small mb-1">Fri</p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[38].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <p class="small mb-1">Sat</p>
+                      <p class="small mb-0"><strong><%= Math.floor(weather.list[6].main.temp / 10) %> °C</strong></p>
+                    </div>
+                    <div class="flex-column">
+                      <i class="fas fa-minus"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 text-end">
+                  <p class="small mt-3 mb-5 pb-5">For a month</p>
+                  <% for (let i = 0; i < 7; i++) { %>
+                    <p class="pb-1"><span class="pe-2"><%= new Date(weather.list[i].dt_txt).getHours() %>:<%= new Date(weather.list[i].dt_txt).getMinutes().toString().padStart(2, '0') %></span> <strong><%= Math.floor(weather.list[i].main.temp / 10) %> °C</strong></p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% } %>
+
+<%- include('partials/footer.ejs') %>
